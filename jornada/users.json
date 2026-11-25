@@ -1,0 +1,31 @@
+{
+  "teste.cadastro@auction.com": {
+    "name": "Usuario Teste",
+    "cpf": "52998224725",
+    "email": "teste.cadastro@auction.com",
+    "phone": "(11) 99999-1234",
+    "bidder": "#BECBF7",
+    "passwordHash": "d3ad9315b7be5dd53b31a273b3b3aba5defe700808305aa16a3062b76658a791"
+  },
+  "ana.silva@auction.com": {
+    "name": "Ana Silva",
+    "cpf": "11144477735",
+    "email": "ana.silva@auction.com",
+    "bidder": "#23364B",
+    "passwordHash": "d3ad9315b7be5dd53b31a273b3b3aba5defe700808305aa16a3062b76658a791"
+  },
+  "aleatorio@auction.com": {
+    "name": "Usuario Aleatorio",
+    "cpf": "12345678900",
+    "email": "aleatorio@auction.com",
+    "bidder": "#63BD3B",
+    "passwordHash": "d3ad9315b7be5dd53b31a273b3b3aba5defe700808305aa16a3062b76658a791"
+  },
+  "sarte@gmail.com": {
+    "name": "vinicius",
+    "cpf": "07125554712",
+    "email": "sarte@gmail.com",
+    "bidder": "#4B638C",
+    "passwordHash": "5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5"
+  }
+}

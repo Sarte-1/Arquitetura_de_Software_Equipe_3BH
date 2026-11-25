@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#08111f">
+  <meta name="description" content="Console de leilão em tempo real com ordenação estrita e detecção de fraudes.">
+  <title>AUCTION // Live Bid Control</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <section id="login-screen" class="auth-screen" aria-labelledby="login-title">
+    <div class="auth-card">
+      <div class="auth-brand">
+        <span class="brand-mark">A//</span>
+        <span class="brand-name">AUCTION<small>LIVE CONTROL</small></span>
+      </div>
+      <div class="auth-heading">
+        <p class="eyebrow">ACESSO AO SISTEMA</p>
+        <h1 id="login-title">Entrar</h1>
+        <p>Use seu e-mail e senha para acessar o leilão.</p>
+      </div>
+      <form id="login-form" class="auth-form">
+        <div class="auth-field">
+          <label for="login-email">E-mail</label>
+          <input id="login-email" name="email" type="email" placeholder="seu@email.com" autocomplete="username" required>
+        </div>
+        <div class="auth-field">
+          <label for="login-password">Senha</label>
+          <input id="login-password" name="password" type="password" placeholder="Sua senha" autocomplete="current-password" minlength="4" required>
+        </div>
+        <button class="auth-submit" type="submit">Entrar <span>→</span></button>
+      </form>
+      <p id="login-feedback" class="auth-feedback" aria-live="polite"></p>
+      <button id="open-register" class="auth-secondary" type="button">Criar conta</button>
+    </div>
+  </section>
+
+  <section id="register-screen" class="auth-screen" aria-labelledby="register-title" hidden>
+    <div class="auth-card">
+      <div class="auth-brand">
+        <span class="brand-mark">A//</span>
+        <span class="brand-name">AUCTION<small>NOVA CONTA</small></span>
+      </div>
+      <div class="auth-heading">
+        <p class="eyebrow">CADASTRO DE PARTICIPANTE</p>
+        <h1 id="register-title">Criar conta</h1>
+        <p>Informe seus dados para participar do leilão.</p>
+      </div>
+      <form id="register-form" class="auth-form">
+        <div class="auth-field">
+          <label for="register-name">Nome completo</label>
+          <input id="register-name" name="name" type="text" minlength="3" placeholder="Seu nome completo" autocomplete="name" required>
+        </div>
+        <div class="auth-field">
+          <label for="register-cpf">CPF</label>
+          <input id="register-cpf" name="cpf" type="text" inputmode="numeric" maxlength="14" placeholder="000.000.000-00" autocomplete="off" required>
+        </div>
+        <div class="auth-field">
+          <label for="register-email">E-mail</label>
+          <input id="register-email" name="email" type="email" placeholder="seu@email.com" autocomplete="email" required>
+        </div>
+        <div class="auth-field">
+          <label for="register-password">Senha</label>
+          <input id="register-password" name="password" type="password" minlength="4" maxlength="64" placeholder="Crie uma senha" autocomplete="new-password" required>
+        </div>
+        <button class="auth-submit" type="submit">Criar conta <span>→</span></button>
+      </form>
+      <p id="register-feedback" class="auth-feedback" aria-live="polite"></p>
+      <button id="back-to-login" class="auth-secondary" type="button">Voltar para entrar</button>
+    </div>
+  </section>
+
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#live" aria-label="Auction control">
+        <span class="brand-mark">A//</span>
+        <span class="brand-name">AUCTION<small>LIVE CONTROL</small></span>
+      </a>
+      <nav class="side-nav" aria-label="Navegação">
+        <a class="active" href="#live"><span>01</span>Leilão ao vivo</a>
+        <a href="#fraud"><span>02</span>Detecção de fraude</a>
+        <a href="#architecture"><span>03</span>Arquitetura C4</a>
+        <a href="#adr"><span>04</span>ADR & padrões</a>
+      </nav>
+      <div class="sidebar-status">
+        <span class="status-label">STATUS DO SISTEMA</span>
+        <strong><i></i> Todos os canais ativos</strong>
+        <small>gateway · kafka · ai-agent</small>
+        <button id="logout-button" class="logout-button" type="button">Encerrar sessão</button>
+      </div>
+    </aside>
+
+    <main>
+      <header class="topbar">
+        <div>
+          <p class="breadcrumb">AUCT-NET / LOT 2847</p>
+          <h1>Leilão em tempo real</h1>
+        </div>
+        <div class="topbar-metrics">
+          <div><span>LATÊNCIA P95</span><strong id="latency">18 ms</strong></div>
+          <div><span>LANCES / MIN</span><strong id="bid-rate">146</strong></div>
+          <div class="live-clock"><span>HORÁRIO UTC</span><strong id="clock">--:--:--</strong></div>
+        </div>
+      </header>
+
+      <div class="content">
+        <section id="live" class="live-grid">
+          <article class="auction-stage">
+            <div class="lot-image" role="img" aria-label="Relógio mecânico de edição limitada">
+              <div class="lot-badge">LOT 2847</div>
+              <div class="watch">
+                <span class="watch-crown"></span>
+                <div class="watch-face">
+                  <i class="hour"></i><i class="minute"></i><i class="center"></i>
+                  <span class="watch-brand">CHRONO // 24</span>
+                </div>
+                <span class="watch-strap top"></span><span class="watch-strap bottom"></span>
+              </div>
+              <div class="image-meta"><span>EDIÇÃO Nº 84/300</span><span>SWISS / 2024</span></div>
+            </div>
+            <div class="lot-details">
+              <div>
+                <p class="eyebrow">RELÓGIO DE COLEÇÃO</p>
+                <h2>Chronograph Série 24</h2>
+                <p>Caixa em titânio, movimento mecânico e certificado de autenticidade.</p>
+              </div>
+              <div class="countdown">
+                <span>ENCERRA EM</span>
+                <strong id="countdown">02:14:37</strong>
+              </div>
+            </div>
+          </article>
+
+          <aside class="bid-panel">
+            <div class="current-bid">
+              <span>MAIOR Lance ATUAL</span>
+              <strong id="current-bid">R$ 128.500</strong>
+              <small>arrematador #A8841 · 23 ms atrás</small>
+            </div>
+            <div class="bid-progress">
+              <div><span>RESERVA</span><strong id="reserve-value">R$ 98.000</strong></div>
+              <div class="progress-track"><i id="reserve-progress" style="width:86%"></i></div>
+              <div><span>PRÓXIMO INCREMENTO</span><strong id="increment">R$ 1.500</strong></div>
+            </div>
+            <form id="bid-form" class="bid-form">
+              <label for="bid-value">Seu lance</label>
+              <div class="bid-input">
+                <span>R$</span>
+                <input id="bid-value" type="number" min="130000" step="500" value="130000">
+              </div>
+              <button type="submit">Enviar lance <span>→</span></button>
+            </form>
+            <p id="bid-feedback" class="bid-feedback" aria-live="polite">Conectado via WebSocket · Kafka ordered partition</p>
+          </aside>
+        </section>
+
+        <section class="dashboard-row">
+          <article class="panel-card" aria-labelledby="book-title">
+            <div class="panel-heading">
+              <div><span class="eyebrow">ORDER BOOK</span><h2 id="book-title">Lances ordenados</h2></div>
+              <span class="demo-tag">TIME-SORTED</span>
+            </div>
+            <div class="bid-list" id="bid-list"></div>
+          </article>
+
+          <article id="fraud" class="panel-card fraud-card" aria-labelledby="fraud-title">
+            <div class="panel-heading">
+              <div><span class="eyebrow">AGENTE DE IA</span><h2 id="fraud-title">Risco em tempo real</h2></div>
+              <div class="risk-score"><strong id="risk-score">08</strong><span>RISCO BAIXO</span></div>
+            </div>
+            <div class="risk-gauge"><i id="risk-gauge"></i></div>
+            <div class="signals">
+              <div><span>Velocidade anormal</span><strong class="ok">NORMAL</strong></div>
+              <div><span>Padrão coordenado</span><strong class="ok">NÃO DETECTADO</strong></div>
+              <div><span>Conta repetida</span><strong class="ok">1 IDENTIDADE</strong></div>
+            </div>
+            <div class="ai-log" id="ai-log">
+              <span>AI-AGENT</span>
+              <p>Análise concluída · nenhuma anomalia crítica.</p>
+            </div>
+          </article>
+        </section>
+
+        <section id="architecture" class="architecture-section">
+          <div class="section-title">
+            <div><p class="eyebrow">MODELO C4 · NÍVEL 2</p><h2>Fluxo bidirecional e mensageria</h2></div>
+            <span>CONTAINER DIAGRAM</span>
+          </div>
+          <div class="c4-diagram" role="img" aria-label="Diagrama C4 mostrando usuários, WebSockets, gateway, Kafka, motor de arremate, pagamentos, agente de IA e armazenamento">
+            <div class="c4-user">ARREMATADOR /<br>OPERADOR</div>
+            <div class="c4-arrow">WebSocket + gRPC Stream ⇄</div>
+            <div class="c4-column">
+              <div class="c4-box gateway"><strong>Bid Gateway</strong><small>rate limit · idempotência · auth</small></div>
+              <div class="c4-box kafka"><strong>Apache Kafka</strong><small>auction-bids · bid-events · fraud-events</small></div>
+              <div class="c4-split">
+                <div class="c4-box"><strong>Motor de Arremate</strong><small>ordenação estrita · winner</small></div>
+                <div class="c4-box ai"><strong>Fraud AI Agent</strong><small>scores · colusão · alertas</small></div>
+              </div>
+            </div>
+            <div class="c4-column services">
+              <div class="c4-box"><strong>Payment Service</strong><small>BULKHEAD PIX / CARD</small></div>
+              <div class="c4-box"><strong>Ledger</strong><small>event store + audit log</small></div>
+            </div>
+          </div>
+          <div class="bulkheads">
+            <article><span>01</span><div><strong>Bulkhead PIX</strong><p>Pool dedicado de 20 threads, timeout 2 s e circuit breaker 50%.</p></div></article>
+            <article><span>02</span><div><strong>Bulkhead Cartão</strong><p>Pool dedicado de 30 threads, timeout 3 s e retry limitado.</p></div></article>
+            <article><span>03</span><div><strong>Isolamento de falha</strong><p>Falhas externas não degradam lances ou o motor de arremate.</p></div></article>
+          </div>
+        </section>
+
+        <section id="adr" class="adr-grid">
+          <article class="adr-card">
+            <p class="eyebrow">ADR-001 · ACEITO</p>
+            <h2>Mensageria assíncrona com Apache Kafka</h2>
+            <dl>
+              <div><dt>Decisão</dt><dd>Kafka como backbone de eventos; WebSocket/gRPC para transporte ao cliente.</dd></div>
+              <div><dt>Razão</dt><dd>Partições por leilão preservam ordem, replay permite auditoria e fan-out desacopla consumidores.</dd></div>
+              <div><dt>Consequência</dt><dd>Consumers idempotentes e chaves de deduplicação são obrigatórios; o sistema assume entrega at-least-once.</dd></div>
+            </dl>
+          </article>
+          <article class="pattern-card">
+            <p class="eyebrow">PADRÃO IMPLEMENTADO</p>
+            <h2>Strategy + Observer</h2>
+            <p>O motor seleciona uma estratégia de encerramento e notifica observadores de preço, fraude e interface.</p>
+            <div class="code-tabs">
+              <button class="active" data-code="strategy">Strategy</button>
+              <button data-code="observer">Observer</button>
+            </div>
+            <pre id="code-preview"><code>class HardCloseStrategy {
+  resolve(current, deadline, now) {
+    return now >= deadline ? current.winner : null
+  }
+}</code></pre>
+          </article>
+        </section>
+      </div>
+    </main>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
